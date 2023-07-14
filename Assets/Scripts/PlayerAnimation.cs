@@ -11,7 +11,6 @@ public class PlayerAnimation : MonoBehaviour
 	private Animator _playerAnim;
 	private SpriteRenderer _spriteRenderer;
 
-
 	private void Start()
     {
 		_player = GetComponent<Rigidbody2D>();
@@ -21,7 +20,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-
 		if (_player.IsTouchingLayers())
 			_playerAnim.SetBool(IsOnGround, true);
 		else

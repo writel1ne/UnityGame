@@ -36,9 +36,9 @@ public class CoinGenerator : MonoBehaviour
     {
         var spawnPositions = new List<Transform>();
 
-        for (int i = 0; i < _coinSpawnPositions.childCount; i++)
+        for (int i = 0; i < coinSpawnPositions.childCount; i++)
         {
-            spawnPositions.Add(_coinSpawnPositions.GetChild(i));
+            spawnPositions.Add(coinSpawnPositions.GetChild(i));
 		}
 
         return spawnPositions;
