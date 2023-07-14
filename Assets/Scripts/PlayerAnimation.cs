@@ -29,6 +29,6 @@ public class PlayerAnimation : MonoBehaviour
 		_playerAnim.SetBool(IsOnGround, _player.IsTouchingLayers());
 		_playerAnim.SetBool(IsRunning, Input.GetAxis("Horizontal") != 0);
 		_playerAnim.SetFloat(VerticalSpeed, _player.velocity.y);
-		_playerAnim.SetFloat(Speed, _player.velocity.x < 0 ? -_player.velocity.x : _player.velocity.x);
+		_playerAnim.SetFloat(Speed, (_player.velocity.x < 0) ? -_player.velocity.x : _player.velocity.x);
 	}
 }
