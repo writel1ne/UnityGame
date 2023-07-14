@@ -8,25 +8,39 @@ public class CoinGenerator : MonoBehaviour
 
 	private void Start()
     {
-        GenerateCoins();
+        List<Transform> spawnPositions = GetSpawnPositions(_coinSpawnPositions);
+
+		GenerateCoins(spawnPositions);
     }
 
-    private void GenerateCoins()
+    private void GenerateCoins(List<Transform> spawnPositions)
     {
 		var rand = new System.Random();
-	    float numberOfCoins = rand.Next(1, _coinSpawnPositions.childCount);
+	    float numberOfCoins = rand.Next(1, spawnPositions.Count);
 		int randIndex;
 
         for (int i = 0; i < numberOfCoins; i++)
         {
-            randIndex = rand.Next(_coinSpawnPositions.childCount);
+            randIndex = rand.Next(spawnPositions.Count);
 
             while (_coinSpawnPositions.GetChild(randIndex).childCount != 0)
             {
-				randIndex = rand.Next(_coinSpawnPositions.childCount);
+				randIndex = rand.Next(spawnPositions.Count);
 			}
 
-            Instantiate(_coinPrefab, _coinSpawnPositions.GetChild(randIndex));
+            Instantiate(_coinPrefab, spawnPositions[randIndex]);
 		}
+    }
+
+    private List<Transform> GetSpawnPositions(Transform coinSpawnPositions)
+    {
+        var spawnPositions = new List<Transform>();
+
+        for (int i = 0; i < _coinSpawnPositions.childCount; i++)
+        {
+            spawnPositions.Add(_coinSpawnPositions.GetChild(i));
+		}
+
+        return spawnPositions;
     }
 }

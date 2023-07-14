@@ -397,7 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1079eb001155b3f4ca3fd9738fd135fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1876240734}
+  _player: {fileID: 1876240734}
   _followSpeed: 10
 --- !u!1 &588241576
 GameObject:

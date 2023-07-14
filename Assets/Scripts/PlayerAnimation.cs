@@ -2,32 +2,38 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-	private Rigidbody2D player;
-	private Animator playerAnim;
-	private SpriteRenderer spriteRenderer;
+	private const string IsOnGround = "IsOnGround";
+	private const string IsRunning = "IsRunning";
+	private const string VerticalSpeed = "VerticalSpeed";
+	private const string Speed = "Speed";
 
-	void Start()
+	private Rigidbody2D _player;
+	private Animator _playerAnim;
+	private SpriteRenderer _spriteRenderer;
+
+
+	private void Start()
     {
-		player = GetComponent<Rigidbody2D>();
-		playerAnim = GetComponent<Animator>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
+		_player = GetComponent<Rigidbody2D>();
+		_playerAnim = GetComponent<Animator>();
+		_spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
     private void Update()
     {
 
-		if (player.IsTouchingLayers())
-			playerAnim.SetBool("IsOnGround", true);
+		if (_player.IsTouchingLayers())
+			_playerAnim.SetBool(IsOnGround, true);
 		else
-			playerAnim.SetBool("IsOnGround", false);
+			_playerAnim.SetBool(IsOnGround, false);
 
 		if (Input.GetAxis("Horizontal") < -0.1)
-			spriteRenderer.flipX = true;
+			_spriteRenderer.flipX = true;
 		else if (Input.GetAxis("Horizontal") > 0.1)
-			spriteRenderer.flipX = false;
+			_spriteRenderer.flipX = false;
 
-		playerAnim.SetBool("IsRunning", Input.GetAxis("Horizontal") != 0);
-		playerAnim.SetFloat("VerticalSpeed", player.velocity.y);
-		playerAnim.SetFloat("Speed", player.velocity.x < 0 ? -player.velocity.x : player.velocity.x);
+		_playerAnim.SetBool(IsRunning, Input.GetAxis("Horizontal") != 0);
+		_playerAnim.SetFloat(VerticalSpeed, _player.velocity.y);
+		_playerAnim.SetFloat(Speed, _player.velocity.x < 0 ? -_player.velocity.x : _player.velocity.x);
 	}
 }

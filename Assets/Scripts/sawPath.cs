@@ -1,11 +1,12 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class sawPath : MonoBehaviour
+public class SawPath : MonoBehaviour
 {
     [SerializeField] private Vector3[] _waypoints;
     [SerializeField] private float _duration = 1;
-    void Start()
+
+    private void Start()
     {
         Tween path = transform.DOPath(_waypoints, _duration, PathType.Linear).SetOptions(true);
 
