@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float _speed = 6;
 	[SerializeField] private float _jumpForce = 17;
 
-    private Rigidbody2D _player;
+	private Rigidbody2D _player;
 
 	private void Start()
 	{
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Space) && _player.IsTouchingLayers())
-			_player.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);		
+			_player.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
 	}
 
 	private void FixedUpdate()

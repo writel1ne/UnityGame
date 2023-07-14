@@ -1,5 +1,9 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
+
 public class PlayerAnimation : MonoBehaviour
 {
 	private const string IsOnGround = "IsOnGround";
@@ -12,14 +16,14 @@ public class PlayerAnimation : MonoBehaviour
 	private SpriteRenderer _spriteRenderer;
 
 	private void Start()
-    {
+	{
 		_player = GetComponent<Rigidbody2D>();
 		_playerAnim = GetComponent<Animator>();
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
-    private void Update()
-    {
+	private void Update()
+	{
 		if (_player.IsTouchingLayers())
 			_playerAnim.SetBool(IsOnGround, true);
 		else
