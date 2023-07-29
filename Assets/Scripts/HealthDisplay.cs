@@ -1,20 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Health))]
+
 public class HealthDisplay : MonoBehaviour
 {
 	[SerializeField] private Image _bar;
 
-	private float _targetBarFullness = 1f;
+	private Health _health;
+	private float _targetBarFullness;
+
+	private void Start()
+	{
+		_health = GetComponent<Health>();
+		_bar.fillAmount = _health.CurrentHealth / _health.CurrentMaxHealth;
+	}
 
 	private void Update()
 	{
+		_targetBarFullness = _health.CurrentHealth / _health.CurrentMaxHealth;
 		_bar.fillAmount = Mathf.MoveTowards(_bar.fillAmount, _targetBarFullness, 0.002f);
 	}
-
-	public void UpdateBar(float health, float maxHealth)
-	{
-		_targetBarFullness = health / maxHealth;
-	}
-
 }

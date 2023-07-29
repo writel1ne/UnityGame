@@ -1,63 +1,51 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(HealthDisplay))]
-
 public class Health : MonoBehaviour
 {
+	private bool _isVulnerable;
+
 	[SerializeField] private float _invulnerableDuration;
 	[SerializeField] private float _maxHealth;
 	[SerializeField] private float _currentHealth;
 
-	private bool _isInvulnerable;
-	private HealthDisplay _healthDisplay;
+	public float CurrentMaxHealth { get { return _maxHealth; } private set{ } }
+	public float CurrentHealth { get { return _currentHealth; } private set { } }
 
 
 	private void Start()
 	{
-		_healthDisplay = GetComponent<HealthDisplay>();
-		_isInvulnerable = false;
-		_currentHealth = (_currentHealth > 0 && _currentHealth <= _maxHealth) ? _currentHealth : _maxHealth;
-
-		_healthDisplay.UpdateBar(_currentHealth, _maxHealth);
-	}
-
-	private void DeathCheck()
-	{
-		if (_currentHealth <= 0)
-		{
-			_currentHealth = 0;
-			transform.gameObject.SetActive(false);
-		}
+		_isVulnerable = true;
+		_currentHealth = (_currentHealth > 0 && _currentHealth < _maxHealth) ? _currentHealth : _maxHealth;
 	}
 
 	private IEnumerator setInvulnerability(float duration)
 	{
-		_isInvulnerable = true;
+		_isVulnerable = false;
 		yield return new WaitForSeconds(duration);
-		_isInvulnerable = false;
+		_isVulnerable = true;
 	}
 
-	private void OnValidate()
+	private void UpdateHealth()
 	{
-		_healthDisplay.UpdateBar(_currentHealth, _maxHealth);
+		_currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+		transform.gameObject.SetActive(_currentHealth > 0);
 	}
 
 	public void GetDamage(float damage)
 	{
-		if (!_isInvulnerable)
+		if (_isVulnerable)
 		{
 			_currentHealth -= damage;
 			StartCoroutine(setInvulnerability(_invulnerableDuration));
 		}
 
-		DeathCheck();
-		_healthDisplay.UpdateBar(_currentHealth, _maxHealth);
+		UpdateHealth();
 	}
 
 	public void GetHeal(float heal)
 	{
-		_currentHealth = (_currentHealth + heal <= _maxHealth) ? _currentHealth + heal : _maxHealth;
-		_healthDisplay.UpdateBar(_currentHealth, _maxHealth);
+		_currentHealth += heal;
+		UpdateHealth();
 	}
 }
