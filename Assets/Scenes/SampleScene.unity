@@ -261,7 +261,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 96136993}
-  - component: {fileID: 96136994}
   m_Layer: 0
   m_Name: Buttons
   m_TagString: Untagged
@@ -285,21 +284,6 @@ Transform:
   m_Father: {fileID: 94256677}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &96136994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96136992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9ac52962b36be438b4e0a13088ce3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 1876240734}
-  _damagePoints: 10
-  _healPoints: 10
 --- !u!1 &235785047
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -502,15 +486,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 96136994}
-        m_TargetAssemblyTypeName: ButtonsOptions, Assembly-CSharp
-        m_MethodName: Damage
-        m_Mode: 1
+      - m_Target: {fileID: 1876240740}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: GetDamage
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -3920,7 +3904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3951,15 +3935,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 96136994}
-        m_TargetAssemblyTypeName: ButtonsOptions, Assembly-CSharp
-        m_MethodName: Heal
-        m_Mode: 1
+      - m_Target: {fileID: 1876240740}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: GetHeal
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -5561,8 +5545,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _invulnerableDuration: 1
-  _maxHealth: 110
-  _currentHealth: 0
+  _maxHealth: 150
+  _currentHealth: 1.58
 --- !u!114 &1876240741
 MonoBehaviour:
   m_ObjectHideFlags: 0

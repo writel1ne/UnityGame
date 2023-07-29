@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
 	[SerializeField] private float _maxHealth;
 	[SerializeField] private float _currentHealth;
 
-	public float CurrentMaxHealth { get { return _maxHealth; } private set{ } }
+	public float CurrentMaxHealth { get { return _maxHealth; } private set { } }
 	public float CurrentHealth { get { return _currentHealth; } private set { } }
 
 
