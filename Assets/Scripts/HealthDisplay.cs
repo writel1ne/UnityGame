@@ -18,7 +18,7 @@ public class HealthDisplay : MonoBehaviour
 
 	private void Update()
 	{
-		if (_bar.fillAmount != _health.CurrentHealth / _health.CurrentMaxHealth)
+		if (_targetBarFullness != _health.CurrentHealth / _health.CurrentMaxHealth)
 		{
 			_targetBarFullness = _health.CurrentHealth / _health.CurrentMaxHealth;
 			_bar.fillAmount = Mathf.MoveTowards(_bar.fillAmount, _targetBarFullness, 0.002f);
