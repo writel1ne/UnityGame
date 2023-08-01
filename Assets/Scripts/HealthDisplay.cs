@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class HealthDisplay : MonoBehaviour
 {
 	[SerializeField] private Image _bar;
+	[SerializeField] private float _fillingStepsDivizor = 10;
 
 	private float _targetBarFullness;
 	private Health _health;
@@ -44,12 +45,13 @@ public class HealthDisplay : MonoBehaviour
 	{
 		coroutineIsRunning = true;
 
-		while (Math.Abs(_targetBarFullness - _bar.fillAmount) >= 0.001)
+		while (Math.Abs(_targetBarFullness - _bar.fillAmount) >= 0.01)
 		{
-			_bar.fillAmount = Mathf.MoveTowards(_bar.fillAmount, _targetBarFullness, Mathf.Abs(_bar.fillAmount - _targetBarFullness) / 10);
+			_bar.fillAmount = Mathf.MoveTowards(_bar.fillAmount, _targetBarFullness, Mathf.Abs(_bar.fillAmount - _targetBarFullness) / _fillingStepsDivizor);
 			yield return null;
 		}
 
+		_bar.fillAmount = _targetBarFullness;
 		coroutineIsRunning = false;
 		yield break;
 	}
