@@ -17,7 +17,9 @@ public class PlayerMovement : MonoBehaviour
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Space) && _player.IsTouchingLayers())
+		{
 			_player.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+		}
 	}
 
 	private void FixedUpdate()

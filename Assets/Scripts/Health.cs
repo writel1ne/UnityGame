@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
@@ -8,15 +9,15 @@ public class Health : MonoBehaviour
 	[SerializeField] private float _invulnerableDuration;
 	[SerializeField] private float _maxHealth;
 	[SerializeField] private float _currentHealth;
+	[SerializeField] private UnityEvent<float, float> _healthChanged;
 
 	public float CurrentMaxHealth { get { return _maxHealth; } private set { } }
 	public float CurrentHealth { get { return _currentHealth; } private set { } }
 
-
 	private void Start()
 	{
 		_isVulnerable = true;
-		_currentHealth = (_currentHealth > 0 && _currentHealth < _maxHealth) ? _currentHealth : _maxHealth;
+		UpdateHealth();
 	}
 
 	private IEnumerator setInvulnerability(float duration)
@@ -30,6 +31,7 @@ public class Health : MonoBehaviour
 	{
 		_currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
 		transform.gameObject.SetActive(_currentHealth > 0);
+		_healthChanged?.Invoke(_currentHealth, _maxHealth);
 	}
 
 	public void GetDamage(float damage)
@@ -47,5 +49,11 @@ public class Health : MonoBehaviour
 	{
 		_currentHealth += heal;
 		UpdateHealth();
+	}
+
+	public event UnityAction<float, float> HealthChanged
+	{
+		add => _healthChanged.AddListener(value);
+		remove => _healthChanged.RemoveListener(value);
 	}
 }
