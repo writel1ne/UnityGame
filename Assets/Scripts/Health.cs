@@ -4,15 +4,21 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-	private bool _isVulnerable;
-
 	[SerializeField] private float _invulnerableDuration;
 	[SerializeField] private float _maxHealth;
 	[SerializeField] private float _currentHealth;
 	[SerializeField] private UnityEvent<float, float> _healthChanged;
 
+	private bool _isVulnerable;
+
 	public float CurrentMaxHealth { get { return _maxHealth; } private set { } }
 	public float CurrentHealth { get { return _currentHealth; } private set { } }
+
+	public event UnityAction<float, float> HealthChanged
+	{
+		add => _healthChanged.AddListener(value);
+		remove => _healthChanged.RemoveListener(value);
+	}
 
 	private void Start()
 	{
@@ -20,7 +26,7 @@ public class Health : MonoBehaviour
 		UpdateHealth();
 	}
 
-	private IEnumerator setInvulnerability(float duration)
+	private IEnumerator SetInvulnerability(float duration)
 	{
 		_isVulnerable = false;
 		yield return new WaitForSeconds(duration);
@@ -34,26 +40,20 @@ public class Health : MonoBehaviour
 		_healthChanged?.Invoke(_currentHealth, _maxHealth);
 	}
 
-	public void GetDamage(float damage)
+	public void SetDamage(float damage)
 	{
 		if (_isVulnerable)
 		{
 			_currentHealth -= damage;
-			StartCoroutine(setInvulnerability(_invulnerableDuration));
+			StartCoroutine(SetInvulnerability(_invulnerableDuration));
 		}
 
 		UpdateHealth();
 	}
 
-	public void GetHeal(float heal)
+	public void SetHeal(float heal)
 	{
 		_currentHealth += heal;
 		UpdateHealth();
-	}
-
-	public event UnityAction<float, float> HealthChanged
-	{
-		add => _healthChanged.AddListener(value);
-		remove => _healthChanged.RemoveListener(value);
 	}
 }

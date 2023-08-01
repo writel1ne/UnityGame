@@ -31,16 +31,6 @@ public class HealthDisplay : MonoBehaviour
 		_health.HealthChanged -= StartUpdateBar;
 	}
 
-	public void StartUpdateBar(float currentHealth, float maxHealth)
-	{
-		_targetBarFullness = currentHealth / maxHealth;
-
-		if (coroutineIsRunning == false)
-		{
-			StartCoroutine(UpdateBar());
-		}
-	}
-
 	private IEnumerator UpdateBar()
 	{
 		coroutineIsRunning = true;
@@ -54,5 +44,15 @@ public class HealthDisplay : MonoBehaviour
 		_bar.fillAmount = _targetBarFullness;
 		coroutineIsRunning = false;
 		yield break;
+	}
+
+	public void StartUpdateBar(float currentHealth, float maxHealth)
+	{
+		_targetBarFullness = currentHealth / maxHealth;
+
+		if (coroutineIsRunning == false)
+		{
+			StartCoroutine(UpdateBar());
+		}
 	}
 }

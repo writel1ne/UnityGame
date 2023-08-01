@@ -14,6 +14,6 @@ public class DamageTrigger : MonoBehaviour
 
 	private void Damage(Health enemyHealth)
 	{
-		enemyHealth.GetDamage(_damage);
+		enemyHealth.SetDamage(_damage);
 	}
 }

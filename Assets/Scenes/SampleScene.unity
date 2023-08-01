@@ -488,7 +488,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1876240740}
         m_TargetAssemblyTypeName: Health, Assembly-CSharp
-        m_MethodName: GetDamage
+        m_MethodName: SetDamage
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3937,7 +3937,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1876240740}
         m_TargetAssemblyTypeName: Health, Assembly-CSharp
-        m_MethodName: GetHeal
+        m_MethodName: SetHeal
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
