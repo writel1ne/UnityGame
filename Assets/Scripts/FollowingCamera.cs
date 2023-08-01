@@ -7,6 +7,7 @@ public class FollowingCamera : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		this.transform.position = Vector3.Lerp(transform.position, new Vector3(_player.position.x, _player.position.y, this.transform.position.z), Time.deltaTime * _followSpeed);
+		this.transform.position = Vector3.Lerp(transform.position, new Vector3(_player.position.x, _player.position.y, 
+			this.transform.position.z), Time.deltaTime * _followSpeed);
 	}
 }

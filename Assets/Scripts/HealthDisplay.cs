@@ -37,12 +37,15 @@ public class HealthDisplay : MonoBehaviour
 
 		while (Math.Abs(_targetBarFullness - _bar.fillAmount) >= 0.01)
 		{
-			_bar.fillAmount = Mathf.MoveTowards(_bar.fillAmount, _targetBarFullness, Mathf.Abs(_bar.fillAmount - _targetBarFullness) / _fillingStepsDivizor);
+			_bar.fillAmount = Mathf.MoveTowards(_bar.fillAmount, _targetBarFullness,
+				Mathf.Abs(_bar.fillAmount - _targetBarFullness) / _fillingStepsDivizor);
+
 			yield return null;
 		}
 
 		_bar.fillAmount = _targetBarFullness;
 		coroutineIsRunning = false;
+
 		yield break;
 	}
 

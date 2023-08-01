@@ -24,7 +24,8 @@ public class PlayerAnimation : MonoBehaviour
 
 	private void Update()
 	{
-		_spriteRenderer.flipX = (Input.GetAxis("Horizontal") != 0) ? (!(Input.GetAxis("Horizontal") > 0) && (Input.GetAxis("Horizontal") < 0)) : _spriteRenderer.flipX;
+		_spriteRenderer.flipX = (Input.GetAxis("Horizontal") != 0) ? 
+			(!(Input.GetAxis("Horizontal") > 0) && (Input.GetAxis("Horizontal") < 0)) : _spriteRenderer.flipX;
 
 		_playerAnim.SetBool(IsOnGround, _player.IsTouchingLayers());
 		_playerAnim.SetBool(IsRunning, Input.GetAxis("Horizontal") != 0);
