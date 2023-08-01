@@ -26,20 +26,6 @@ public class Health : MonoBehaviour
 		UpdateHealth();
 	}
 
-	private IEnumerator SetInvulnerability(float duration)
-	{
-		_isVulnerable = false;
-		yield return new WaitForSeconds(duration);
-		_isVulnerable = true;
-	}
-
-	private void UpdateHealth()
-	{
-		_currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
-		transform.gameObject.SetActive(_currentHealth > 0);
-		_healthChanged?.Invoke(_currentHealth, _maxHealth);
-	}
-
 	public void SetDamage(float damage)
 	{
 		if (_isVulnerable)
@@ -55,5 +41,19 @@ public class Health : MonoBehaviour
 	{
 		_currentHealth += heal;
 		UpdateHealth();
+	}
+
+	private IEnumerator SetInvulnerability(float duration)
+	{
+		_isVulnerable = false;
+		yield return new WaitForSeconds(duration);
+		_isVulnerable = true;
+	}
+
+	private void UpdateHealth()
+	{
+		_currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+		transform.gameObject.SetActive(_currentHealth > 0);
+		_healthChanged?.Invoke(_currentHealth, _maxHealth);
 	}
 }
