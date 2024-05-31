@@ -22,8 +22,8 @@ public class SpawnerLoop : MonoBehaviour
 			yield return _spawnDelay;
 
 			SelectRandomSpawner().TryGetComponent(out spawner);
-			spawner.GenerateDefaultDirection();
-			spawner.SpawnNewEntity();
+			spawner?.GenerateDefaultDirection();
+			spawner?.SpawnNewEntity();
 		}
 	}
 
