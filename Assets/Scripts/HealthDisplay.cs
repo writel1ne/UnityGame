@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Health))]
+
 public class HealthDisplay : MonoBehaviour
 {
     [SerializeField] private Transform _healthBar;
@@ -14,12 +15,11 @@ public class HealthDisplay : MonoBehaviour
     private bool _coroutineIsRunning;
     private float _targetBarFullness;
 
-    private void Start()
+    private void Awake()
     {
         _bar = _healthBar.GetChild(0).GetChild(0).GetComponent<Image>();
         _health = GetComponent<Health>();
         _bar.fillAmount = _health.CurrentHealth / _health.CurrentMaxHealth;
-        _health.HealthChanged += StartUpdateBar;
     }
     
     private void OnEnable()

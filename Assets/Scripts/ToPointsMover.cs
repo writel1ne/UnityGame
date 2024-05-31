@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-// ReSharper disable All
 
 public class ToPointsMover : MonoBehaviour
 {
