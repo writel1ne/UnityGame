@@ -4,46 +4,46 @@ using UnityEngine;
 
 public class ToTargetMover : MonoBehaviour
 {
-    [SerializeField] private float _speed = 6;
-    [SerializeField] private float _jumpForce = 17;
-    [SerializeField] private float _maxApproachDistance;
-    [SerializeField] private Transform _target;
-    
-    private float _distanceToTarget;
-    private Vector2 _targetPoint;
+	[SerializeField] private float _speed = 6;
+	[SerializeField] private float _jumpForce = 17;
+	[SerializeField] private float _maxApproachDistance;
+	[SerializeField] private Transform _target;
 
-    private Rigidbody2D _entity;
+	private float _distanceToTarget;
+	private Vector2 _targetPoint;
 
-    private void Start()
-    {
-        _entity = GetComponent<Rigidbody2D>();
-        _maxApproachDistance = Random.Range(0, _maxApproachDistance);
-    }
+	private Rigidbody2D _entity;
 
-    private void FixedUpdate()
-    {
-        MoveToTarget();
-    }
+	private void Start()
+	{
+		_entity = GetComponent<Rigidbody2D>();
+		_maxApproachDistance = Random.Range(0, _maxApproachDistance);
+	}
 
-    public void SetTarget(Transform newTarget)
-    {
-        _target = newTarget;
-    }
+	private void FixedUpdate()
+	{
+		MoveToTarget();
+	}
 
-    public void SetTarget(Vector2 targetPoint)
-    {
-        _targetPoint = targetPoint;
-    }
+	public void SetTarget(Transform newTarget)
+	{
+		_target = newTarget;
+	}
 
-    private void MoveToTarget()
-    {
-        if (_target != null)
-            _distanceToTarget = _target.position.x - _entity.position.x; 
-        else
-            _distanceToTarget = _targetPoint.x - _entity.position.x; 
-            
+	public void SetTarget(Vector2 targetPoint)
+	{
+		_targetPoint = targetPoint;
+	}
 
-        if (Mathf.Abs(_distanceToTarget) > _maxApproachDistance)
-            _entity.velocity = new Vector2(_speed * Mathf.Clamp(_distanceToTarget, -1, 1), _entity.velocity.y);
-    }
+	private void MoveToTarget()
+	{
+		if (_target != null)
+			_distanceToTarget = _target.position.x - _entity.position.x;
+		else
+			_distanceToTarget = _targetPoint.x - _entity.position.x;
+
+
+		if (Mathf.Abs(_distanceToTarget) > _maxApproachDistance)
+			_entity.velocity = new Vector2(_speed * Mathf.Clamp(_distanceToTarget, -1, 1), _entity.velocity.y);
+	}
 }

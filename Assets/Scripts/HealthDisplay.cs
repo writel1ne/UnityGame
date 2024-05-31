@@ -7,53 +7,53 @@ using UnityEngine.UI;
 
 public class HealthDisplay : MonoBehaviour
 {
-    [SerializeField] private Transform _healthBar;
-    [SerializeField] private float _fillingStepsDivizor = 10;
+	[SerializeField] private Transform _healthBar;
+	[SerializeField] private float _fillingStepsDivizor = 10;
 
-    private Image _bar;
-    private Health _health;
-    private bool _coroutineIsRunning;
-    private float _targetBarFullness;
+	private Image _bar;
+	private Health _health;
+	private bool _coroutineIsRunning;
+	private float _targetBarFullness;
 
-    private void Awake()
-    {
-        _bar = _healthBar.GetChild(0).GetChild(0).GetComponent<Image>();
-        _health = GetComponent<Health>();
-        _bar.fillAmount = _health.CurrentHealth / _health.CurrentMaxHealth;
-    }
-    
-    private void OnEnable()
-    {
-        _health.HealthChanged += StartUpdateBar;
-        _healthBar.gameObject.SetActive(true);
-    }
+	private void Awake()
+	{
+		_bar = _healthBar.GetChild(0).GetChild(0).GetComponent<Image>();
+		_health = GetComponent<Health>();
+		_bar.fillAmount = _health.CurrentHealth / _health.CurrentMaxHealth;
+	}
 
-    private void OnDisable()
-    {
-        _health.HealthChanged -= StartUpdateBar;
-        _healthBar.gameObject.SetActive(false);
-    }
+	private void OnEnable()
+	{
+		_health.HealthChanged += StartUpdateBar;
+		_healthBar.gameObject.SetActive(true);
+	}
 
-    public void StartUpdateBar(float currentHealth, float maxHealth)
-    {
-        _targetBarFullness = currentHealth / maxHealth;
+	private void OnDisable()
+	{
+		_health.HealthChanged -= StartUpdateBar;
+		_healthBar.gameObject.SetActive(false);
+	}
 
-        if (_coroutineIsRunning == false) StartCoroutine(UpdateBar());
-    }
+	public void StartUpdateBar(float currentHealth, float maxHealth)
+	{
+		_targetBarFullness = currentHealth / maxHealth;
 
-    private IEnumerator UpdateBar()
-    {
-        _coroutineIsRunning = true;
+		if (_coroutineIsRunning == false) StartCoroutine(UpdateBar());
+	}
 
-        while (Math.Abs(_targetBarFullness - _bar.fillAmount) >= 0.01)
-        {
-            _bar.fillAmount = Mathf.MoveTowards(_bar.fillAmount, _targetBarFullness,
-                Mathf.Abs(_bar.fillAmount - _targetBarFullness) / _fillingStepsDivizor);
+	private IEnumerator UpdateBar()
+	{
+		_coroutineIsRunning = true;
 
-            yield return null;
-        }
+		while (Math.Abs(_targetBarFullness - _bar.fillAmount) >= 0.01)
+		{
+			_bar.fillAmount = Mathf.MoveTowards(_bar.fillAmount, _targetBarFullness,
+				Mathf.Abs(_bar.fillAmount - _targetBarFullness) / _fillingStepsDivizor);
 
-        _bar.fillAmount = _targetBarFullness;
-        _coroutineIsRunning = false;
-    }
+			yield return null;
+		}
+
+		_bar.fillAmount = _targetBarFullness;
+		_coroutineIsRunning = false;
+	}
 }

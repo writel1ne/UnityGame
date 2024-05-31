@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class CollisionDamage : MonoBehaviour
 {
-    [SerializeField] private float _damage;
+	[SerializeField] private float _damage;
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out Health enemyHealth)) Damage(enemyHealth);
-    }
+	private void OnTriggerStay2D(Collider2D collision)
+	{
+		if (collision.gameObject.TryGetComponent(out Health enemyHealth)) Damage(enemyHealth);
+	}
 
-    private void Damage(Health enemyHealth)
-    {
-        enemyHealth.SetDamage(_damage);
-    }
+	private void Damage(Health enemyHealth)
+	{
+		enemyHealth.SetDamage(_damage);
+	}
 }

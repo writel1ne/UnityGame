@@ -5,57 +5,57 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float _invulnerableDuration;
-    [SerializeField] private float _maxHealth;
-    [SerializeField] private float _currentHealth;
-    
-    private bool _isVulnerable = true;
+	[SerializeField] private float _invulnerableDuration;
+	[SerializeField] private float _maxHealth;
+	[SerializeField] private float _currentHealth;
 
-    public float CurrentMaxHealth => _maxHealth;
-    public float CurrentHealth => _currentHealth;
+	private bool _isVulnerable = true;
 
-    private void Start()
-    {
-        UpdateHealth();
-    }
+	public float CurrentMaxHealth => _maxHealth;
+	public float CurrentHealth => _currentHealth;
 
-    private void OnEnable()
-    {
-        UpdateHealth();
-    }
+	private void Start()
+	{
+		UpdateHealth();
+	}
 
-    public event UnityAction<float, float> HealthChanged;
-    public event UnityAction<Vector3> Damaged;
+	private void OnEnable()
+	{
+		UpdateHealth();
+	}
 
-    public void SetDamage(float damage)
-    {
-        if (_isVulnerable)
-        {
-            _currentHealth -= damage;
+	public event UnityAction<float, float> HealthChanged;
+	public event UnityAction<Vector3> Damaged;
 
-            StartCoroutine(SetInvulnerability(_invulnerableDuration));
-            //Damaged.Invoke(attackerPosition);
-            UpdateHealth();
-        }
-    }
+	public void SetDamage(float damage)
+	{
+		if (_isVulnerable)
+		{
+			_currentHealth -= damage;
 
-    public void SetHeal(float heal)
-    {
-        _currentHealth += heal;
-        UpdateHealth();
-    }
+			StartCoroutine(SetInvulnerability(_invulnerableDuration));
+			//Damaged.Invoke(attackerPosition);
+			UpdateHealth();
+		}
+	}
 
-    private IEnumerator SetInvulnerability(float duration)
-    {
-        _isVulnerable = false;
-        yield return new WaitForSeconds(duration);
-        _isVulnerable = true;
-    }
+	public void SetHeal(float heal)
+	{
+		_currentHealth += heal;
+		UpdateHealth();
+	}
 
-    private void UpdateHealth()
-    {
-        _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
-        transform.gameObject.SetActive(_currentHealth > 0);
-        HealthChanged?.Invoke(_currentHealth, _maxHealth);
-    }
+	private IEnumerator SetInvulnerability(float duration)
+	{
+		_isVulnerable = false;
+		yield return new WaitForSeconds(duration);
+		_isVulnerable = true;
+	}
+
+	private void UpdateHealth()
+	{
+		_currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+		transform.gameObject.SetActive(_currentHealth > 0);
+		HealthChanged?.Invoke(_currentHealth, _maxHealth);
+	}
 }

@@ -3,34 +3,34 @@ using UnityEngine;
 
 public class SawPath : MonoBehaviour
 {
-    [SerializeField] private Transform _waypointsList;
-    [SerializeField] private float _speed = 1;
-    
-    private float _duration;
+	[SerializeField] private Transform _waypointsList;
+	[SerializeField] private float _speed = 1;
 
-    private Vector3[] _waypoints;
+	private float _duration;
 
-    private void Start()
-    {
-        _duration = SpeedToDuration(_speed);
-        UnPacking();
+	private Vector3[] _waypoints;
 
-        Tween path = transform.DOPath(_waypoints, _duration);
-        path.SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
-    }
+	private void Start()
+	{
+		_duration = SpeedToDuration(_speed);
+		UnPacking();
 
-    private void UnPacking()
-    {
-        var array = new Vector3[_waypointsList.childCount];
+		Tween path = transform.DOPath(_waypoints, _duration);
+		path.SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+	}
 
-        for (var i = 0; i < _waypointsList.childCount; i++) array[i] = _waypointsList.GetChild(i).position;
+	private void UnPacking()
+	{
+		var array = new Vector3[_waypointsList.childCount];
 
-        _waypoints = array;
-    }
+		for (var i = 0; i < _waypointsList.childCount; i++) array[i] = _waypointsList.GetChild(i).position;
 
-    private float SpeedToDuration(float speed)
-    {
-        var duration = 1 / speed * _waypointsList.childCount * 2;
-        return duration;
-    }
+		_waypoints = array;
+	}
+
+	private float SpeedToDuration(float speed)
+	{
+		var duration = 1 / speed * _waypointsList.childCount * 2;
+		return duration;
+	}
 }
